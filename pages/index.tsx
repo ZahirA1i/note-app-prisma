@@ -1,5 +1,3 @@
-
-
 import { GetServerSideProps } from 'next'
 import { prisma } from '../lib/prisma'
 import Router, { useRouter } from 'next/router'
