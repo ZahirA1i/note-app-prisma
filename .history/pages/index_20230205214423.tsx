@@ -46,6 +46,25 @@ export default function Home({notes}: Notes) {
     }
   }
 
+  async function deleteNote(id: string){
+    try {
+      fetch(`https://localhost:3000/api/note/${id}`,{
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method:'DELETE'
+      }).then(() => {
+        refreshData()
+      })
+    } catch (error) {
+      console.log(404);
+    }
+  }
+
+
+
+
+
   const handleSubmit = async (data: FormData) => {
     try {
       create(data)
@@ -79,7 +98,7 @@ export default function Home({notes}: Notes) {
 
       </form>
 
-      <div className="w-auto min-w-[100%] max-w-min mt-20 mx-auto space-y-6 flex flex-col items-stretch">
+      <div className="w-auto min-w-[25%] max-w-min mt-20 mx-auto space-y-6 flex flex-col items-stretch">
       <ul>
         {notes.map(note => (
           <li key={note.id} className="border-b border-gray-600 p-2" >
@@ -88,6 +107,7 @@ export default function Home({notes}: Notes) {
                 <h3 className="font-bold" >{note.title}</h3>
                 <p>{note.content}</p>
               </div>
+              <button onClick={() => deleteNote(note.id)}>Delete</button>
             </div>
           </li>
         ))}
